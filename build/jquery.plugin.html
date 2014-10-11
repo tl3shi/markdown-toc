@@ -173,7 +173,7 @@
 <h3>Global工具类的插件</h3>
 
 <p>比如</p>
-<div class="highlight"><pre><span class="nv">$.trim</span>(<span class="s">&#39;hello world  &#39;</span>)
+<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">trim</span><span class="p">(</span><span class="err">&#39;</span><span class="n">hello</span> <span class="n">world</span>  <span class="err">&#39;</span><span class="p">)</span>
 </pre></div>
 <p>这个方法是用于去掉空格的工具方法。它其实是给jQuery对象上增加了trim方法。</p>
 
@@ -360,13 +360,13 @@
 </pre></div>
 <p>修改如下</p>
 <div class="highlight"><pre><span class="c1">// html</span>
-<span class="o">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="o">=</span><span class="p">&#39;</span><span class="n">tab_content_item</span> <span class="n">active</span><span class="p">&#39;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">div</span> <span class="n">class</span><span class="o">=</span><span class="s1">&#39;tab_content_item active&#39;</span><span class="o">&gt;</span>
     <span class="err">我是第一个内容</span>
-<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nb">div</span><span class="o">&gt;</span>
 
 <span class="c1">// css</span>
-<span class="p">.</span><span class="n">tab_content</span> <span class="p">.</span><span class="n">active</span><span class="p">{</span>
-    <span class="nl">display:</span><span class="n">block</span><span class="p">;</span>
+<span class="bp">.</span><span class="nx">tab_content</span> <span class="bp">.</span><span class="nx">active</span><span class="p">{</span>
+    <span class="nx">display</span><span class="p">:</span><span class="nx">block</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>把行内样式抽象成状态，继而让代码更具可读性</p>
@@ -409,32 +409,32 @@
 <p>让我们动手改造一下tab.js吧：</p>
 
 <h3>代码</h3>
-<div class="highlight"><pre>;(<span class="n">function</span>($) { 
+<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
 
-    <span class="nv">$.fn</span>.<span class="n">tab</span> = <span class="n">function</span>(<span class="n">options</span>) {
-        // 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-        <span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
+        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>() {
-            <span class="n">var</span> <span class="n">obj</span> = $(<span class="n">this</span>);
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">on</span>(<span class="s">&#39;mouseover&#39;</span>, <span class="n">function</span> (){
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">removeClass</span>(<span class="s">&#39;active&#39;</span>);
-                $(<span class="n">this</span>).<span class="n">addClass</span>(<span class="s">&#39;active&#39;</span>);
+            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="n">hide</span>();
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="o">eq</span>($(<span class="n">this</span>).<span class="nb">index</span>()).<span class="n">show</span>();
-            })      
-        });
-        // <span class="nb">each</span> <span class="nb">end</span>
-    }
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
+            <span class="p">})</span>      
+        <span class="p">});</span>
+        <span class="c1">// each end</span>
+    <span class="p">}</span>
 
-    //定义默认
-    <span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span> = {
+    <span class="c1">//定义默认</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
 
-    };
+    <span class="p">};</span>
 
-})(<span class="n">jQuery</span>);
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <p>这段代码除了套用jQuery plugin模板外，就是几处select变成基于obj的查找的selector，其他与之前无异。</p>
 
@@ -457,8 +457,8 @@
 <span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>配置项</h3>
-<div class="highlight"><pre>// 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-<span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+<div class="highlight"><pre><span class="c1">// 将defaults 和 options 参数合并到{}</span>
+<span class="k">var</span> <span class="n">opts</span> <span class="o">=</span> <span class="err">$</span><span class="p">.</span><span class="n">extend</span><span class="p">({},</span><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span><span class="p">,</span><span class="n">options</span><span class="p">);</span>
 </pre></div>
 <p>上面的代码是大家会100%疑问的地方，在此做一个简要说明</p>
 
@@ -471,9 +471,9 @@
 </ul>
 
 <p>那么$.extend方法是jQuery的方法，它是用于属性或者方法合并的，也就是说options和$.fn.tab.defaults先合并，合并的时候已后面的options为主，如果</p>
-<div class="highlight"><pre><span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>={
-    <span class="n">a</span> : <span class="mi">0</span>
-}
+<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
+    <span class="n">a</span> <span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
 </pre></div>
 <p>而options的是
     $(&#39;.tab&#39;).tab({
@@ -483,10 +483,10 @@
 <p>那么合并的结果将是a = 1，即以后面的为主</p>
 
 <p>如果options里没有b，而$.fn.tab.defaults里有b配置呢</p>
-<div class="highlight"><pre><span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>={
-    <span class="n">a</span> : <span class="mi">0</span>,
-    <span class="n">b</span> : <span class="nb">true</span>
-}
+<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
+    <span class="n">a</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">b</span> <span class="o">:</span> <span class="nb">true</span>
+<span class="p">}</span>
 </pre></div>
 <p>那么合并的结果将是</p>
 <div class="highlight"><pre><span class="p">{</span>
@@ -497,7 +497,7 @@
 <p>如果后面没有前面有，此值就是前面的值，即插件的默认项</p>
 
 <p>只有最前面的</p>
-<div class="highlight"><pre><span class="n">opts</span> = <span class="nv">$.extend</span>({},***)
+<div class="highlight"><pre><span class="n">opts</span> <span class="o">=</span> <span class="err">$</span><span class="p">.</span><span class="n">extend</span><span class="p">({},</span><span class="o">***</span><span class="p">)</span>
 </pre></div>
 <p>这是是一种防御性写法，保证返回的opts一定是一个plain object，仅此而已。</p>
 
@@ -533,11 +533,11 @@
 <h3>selector和$.fn</h3>
 
 <p>插件的定义是</p>
-<div class="highlight"><pre><span class="nv">$.fn</span>.<span class="n">tab</span> = <span class="n">function</span>(<span class="n">options</span>){
-    <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>(){
-        ...
-    });
-}
+<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="p">...</span>
+    <span class="p">});</span>
+<span class="p">}</span>
 </pre></div>
 <p>插件的用法是</p>
 <div class="highlight"><pre><span class="err">$</span><span class="p">(</span><span class="err">&#39;</span><span class="p">.</span><span class="n">tab</span><span class="err">&#39;</span><span class="p">).</span><span class="n">tab</span><span class="p">({</span>
@@ -558,32 +558,32 @@
 <p>是不是更简单？</p>
 
 <h3>jQuery plugin template</h3>
-<div class="highlight"><pre>;(<span class="n">function</span>($) { 
+<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
 
-    <span class="nv">$.fn</span>.<span class="n">XXXXXX</span> = <span class="n">function</span>(<span class="n">options</span>) {
-        // 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-        <span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">XXXXXX</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
+        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>() {
-            <span class="n">var</span> <span class="n">obj</span> = $(<span class="n">this</span>);
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            ...
-        });
-        // <span class="nb">each</span> <span class="nb">end</span>
-    }
+            <span class="p">...</span>
+        <span class="p">});</span>
+        <span class="c1">// each end</span>
+    <span class="p">}</span>
 
-    //定义默认
-    <span class="nv">$.fn</span>.<span class="n">XXXXXX</span>.<span class="n">defaults</span> = {
+    <span class="c1">//定义默认</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
 
-    };
+    <span class="p">};</span>
 
-})(<span class="n">jQuery</span>);
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>插件特点</h3>
 
 <ol>
 <li><p>有默认项</p>
-<div class="highlight"><pre><span class="nv">$.fn</span>.<span class="n">XXXXXX</span>.<span class="n">defaults</span>
+<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">XXXXXX</span><span class="p">.</span><span class="n">defaults</span>
 </pre></div></li>
 <li><p>基于selector</p>
 <div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -628,32 +628,32 @@
 当然不是了，我们看到很多网站的tab都是点击切换的，那么我们如何能让我们的tab支持这2种方式呢？</p>
 
 <h3>支持tab触发事件选项</h3>
-<div class="highlight"><pre>;(<span class="n">function</span>($) { 
+<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
 
-    <span class="nv">$.fn</span>.<span class="n">tab</span> = <span class="n">function</span>(<span class="n">options</span>) {
-        // 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-        <span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
+        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>() {
-            <span class="n">var</span> <span class="n">obj</span> = $(<span class="n">this</span>);
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">on</span>(<span class="n">opts</span>.<span class="n">trigger_event_type</span>, <span class="n">function</span> (){
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">removeClass</span>(<span class="s">&#39;active&#39;</span>);
-                $(<span class="n">this</span>).<span class="n">addClass</span>(<span class="s">&#39;active&#39;</span>);
+            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="n">hide</span>();
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="o">eq</span>($(<span class="n">this</span>).<span class="nb">index</span>()).<span class="n">show</span>();
-            })      
-        });
-        // <span class="nb">each</span> <span class="nb">end</span>
-    }
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
+            <span class="p">})</span>      
+        <span class="p">});</span>
+        <span class="c1">// each end</span>
+    <span class="p">}</span>
 
-    //定义默认
-    <span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span> = {
-        <span class="n">trigger_event_type:&#39;click&#39;</span>,<span class="sr"> //</span><span class="n">mouseover</span> | <span class="n">click</span> 默认是<span class="n">click</span>
-    };
+    <span class="c1">//定义默认</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
+    <span class="p">};</span>
 
-})(<span class="n">jQuery</span>);
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <p>这就是普通配置项的例子，配置项的值是js支持的类型</p>
 
@@ -699,37 +699,37 @@
 <h3>回调函数</h3>
 
 <p>这就是普通配置项的例子，配置项的值是js支持的类型</p>
-<div class="highlight"><pre>;(<span class="n">function</span>($) { 
+<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
 
-    <span class="nv">$.fn</span>.<span class="n">tab</span> = <span class="n">function</span>(<span class="n">options</span>) {
-        // 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-        <span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
+        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>() {
-            <span class="n">var</span> <span class="n">obj</span> = $(<span class="n">this</span>);
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">on</span>(<span class="n">opts</span>.<span class="n">trigger_event_type</span>, <span class="n">function</span> (){
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">removeClass</span>(<span class="s">&#39;active&#39;</span>);
-                $(<span class="n">this</span>).<span class="n">addClass</span>(<span class="s">&#39;active&#39;</span>);
+            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="n">hide</span>();
-                $(<span class="n">obj</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="o">eq</span>($(<span class="n">this</span>).<span class="nb">index</span>()).<span class="n">show</span>();
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
 
-                <span class="n">opts</span>.<span class="n">change</span>($(<span class="n">this</span>).<span class="nb">index</span>());
-            })      
-        });
-        // <span class="nb">each</span> <span class="nb">end</span>
-    }
+                <span class="nx">opts</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">());</span>
+            <span class="p">})</span>      
+        <span class="p">});</span>
+        <span class="c1">// each end</span>
+    <span class="p">}</span>
 
-    //定义默认
-    <span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span> = {
-        <span class="n">trigger_event_type:&#39;click&#39;</span>,<span class="sr"> //</span><span class="n">mouseover</span> | <span class="n">click</span> 默认是<span class="n">click</span>
-        <span class="n">change:</span> <span class="n">function</span>(<span class="nb">index</span>){
-            <span class="n">console</span>.<span class="nb">log</span>(<span class="s">&#39;current index = &#39;</span> + <span class="nb">index</span>);
-        }
-    };
+    <span class="c1">//定义默认</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
+        <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;current index = &#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
 
-})(<span class="n">jQuery</span>);
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>生效了么？</h3>
 
@@ -741,13 +741,13 @@
 
 <ol>
 <li><p>增加了change配置项</p>
-<div class="highlight"><pre>//定义默认
-<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span> = {
-    ......
-    <span class="n">change:</span> <span class="n">function</span>(<span class="nb">index</span>){
-        <span class="n">console</span>.<span class="nb">log</span>(<span class="s">&#39;current index = &#39;</span> + <span class="nb">index</span>);
-    }
-};
+<div class="highlight"><pre><span class="c1">//定义默认</span>
+<span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">......</span>
+    <span class="nl">change:</span> <span class="k">function</span><span class="p">(</span><span class="n">index</span><span class="p">){</span>
+        <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(&#39;</span><span class="n">current</span> <span class="n">index</span> <span class="o">=</span> <span class="p">&#39;</span> <span class="o">+</span> <span class="n">index</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 </pre></div></li>
 <li><p>在插件内部调用了此回调函数</p>
 <div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -762,8 +762,7 @@
 </pre></div></li>
 </ol>
 
-<h3>回调函数最需要注意的问题</h3>
-
+<h3>回调函数最需要注意的问题
 <ul>
 <li>调用场合，在什么地方调用，这是生命周期的核心问题</li>
 <li>参数，确保在调用处有这些值</li>
@@ -797,74 +796,74 @@
 <p>jquery_plugin/plugin_four</p>
 
 <p><a href="examples/jquery_plugin/plugin_four/jQuery.tab.html">plugin_4</a></p>
-<div class="highlight"><pre>;(<span class="n">function</span>($) { 
+<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
 
-    /**
-     * 公共函数: 初始化<span class="n">tab</span>出发事件
-     */ 
-    <span class="n">function</span> <span class="n">init_tab_trigger_event</span>(<span class="n">container</span>,<span class="n">opts</span>) {
-        $(<span class="n">container</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">on</span>(<span class="n">opts</span>.<span class="n">trigger_event_type</span>, <span class="n">function</span> (){
-            $(<span class="n">container</span>).<span class="n">find</span>(<span class="s">&#39;.tab_header li&#39;</span>).<span class="n">removeClass</span>(<span class="s">&#39;active&#39;</span>);
-            $(<span class="n">this</span>).<span class="n">addClass</span>(<span class="s">&#39;active&#39;</span>);
+    <span class="cm">/**</span>
+<span class="cm">     * 公共函数: 初始化tab出发事件</span>
+<span class="cm">     */</span> 
+    <span class="kd">function</span> <span class="nx">init_tab_trigger_event</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 
-            $(<span class="n">container</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="n">hide</span>();
-            $(<span class="n">container</span>).<span class="n">find</span>(<span class="s">&#39;.tab_content div&#39;</span>).<span class="o">eq</span>($(<span class="n">this</span>).<span class="nb">index</span>()).<span class="n">show</span>();
+            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
 
-            <span class="n">opts</span>.<span class="n">change</span>($(<span class="n">this</span>).<span class="nb">index</span>());
-        })      
-    }
+            <span class="nx">opts</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">());</span>
+        <span class="p">})</span>      
+    <span class="p">}</span>
 
-    /**
-     * 公共函数: 初始化<span class="n">tab</span>出发事件
-     */
-    <span class="n">function</span> <span class="n">init_with_config</span>(<span class="n">opts</span>){
-        <span class="n">_init_aaa_with_config</span>(<span class="n">opts</span>);
+    <span class="cm">/**</span>
+<span class="cm">     * 公共函数: 初始化tab出发事件</span>
+<span class="cm">     */</span>
+    <span class="kd">function</span> <span class="nx">init_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
+        <span class="nx">_init_aaa_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
 
-        <span class="n">_init_bbb_with_config</span>(<span class="n">opts</span>);
+        <span class="nx">_init_bbb_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
 
-        <span class="n">_init_ccc_with_config</span>(<span class="n">opts</span>);
-    }
+        <span class="nx">_init_ccc_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    /**
-     * 私有函数
-     */
-    <span class="n">function</span> <span class="n">_init_aaa_with_config</span>(<span class="n">opts</span>){
+    <span class="cm">/**</span>
+<span class="cm">     * 私有函数</span>
+<span class="cm">     */</span>
+    <span class="kd">function</span> <span class="nx">_init_aaa_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
 
-    }
+    <span class="p">}</span>
 
-    <span class="n">function</span> <span class="n">_init_bbb_with_config</span>(<span class="n">opts</span>){
+    <span class="kd">function</span> <span class="nx">_init_bbb_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
 
-    }
+    <span class="p">}</span>
 
-    <span class="n">function</span> <span class="n">_init_ccc_with_config</span>(<span class="n">opts</span>){
+    <span class="kd">function</span> <span class="nx">_init_ccc_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
 
-    }
+    <span class="p">}</span>
 
-    <span class="nv">$.fn</span>.<span class="n">tab</span> = <span class="n">function</span>(<span class="n">options</span>) {
-        // 将<span class="n">defaults</span> 和 <span class="n">options</span> 参数合并到{}
-        <span class="n">var</span> <span class="n">opts</span> = <span class="nv">$.extend</span>({},<span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span>,<span class="n">options</span>);
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
+        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="n">this</span>.<span class="nb">each</span>(<span class="n">function</span>() {
-            <span class="n">var</span> <span class="n">obj</span> = $(<span class="n">this</span>);
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            // 根据配置进行初始化
-            <span class="n">init_with_config</span>(<span class="n">opts</span>);
+            <span class="c1">// 根据配置进行初始化</span>
+            <span class="nx">init_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
 
-            // 初始化<span class="n">tab</span>出发事件
-            <span class="n">init_tab_trigger_event</span>(<span class="n">obj</span>,<span class="n">opts</span>);
-        });
-        // <span class="nb">each</span> <span class="nb">end</span>
-    }
+            <span class="c1">// 初始化tab出发事件</span>
+            <span class="nx">init_tab_trigger_event</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="nx">opts</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="c1">// each end</span>
+    <span class="p">}</span>
 
-    //定义默认
-    <span class="nv">$.fn</span>.<span class="n">tab</span>.<span class="n">defaults</span> = {
-        <span class="n">trigger_event_type:&#39;click&#39;</span>,<span class="sr"> //</span><span class="n">mouseover</span> | <span class="n">click</span> 默认是<span class="n">click</span>
-        <span class="n">change:</span> <span class="n">function</span>(<span class="nb">index</span>){
-            <span class="n">console</span>.<span class="nb">log</span>(<span class="s">&#39;current index = &#39;</span> + <span class="nb">index</span>);
-        }
-    };
+    <span class="c1">//定义默认</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
+        <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;current index = &#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
 
-})(<span class="n">jQuery</span>);
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>将插件核心逻辑，抽象成公共函数</h3>
 <div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -923,8 +922,7 @@
 </pre></div>
 <p>函数体前面加一个空格</p>
 
-<h2>使用grunt创建项目</h2>
-
+<h2>使用grunt创建项目
 <p><a href="http://gruntjs.com/getting-started">grunt</a>是基于任务的构建工具，和make，rake，ant，cake，maven，gradle等是一样的</p>
 
 <h3>前置条件</h3>
@@ -1070,7 +1068,7 @@
 
 <p><a href="http://plugins.jquery.com/docs/publish/">http://plugins.jquery.com/docs/publish/</a></p>
 
-<p>Settings -> Service Hooks -> WebHook URLs</p>
+<p>Settings -&gt; Service Hooks -&gt; WebHook URLs</p>
 
 <p><a href="http://plugins.jquery.com/postreceive-hook">http://plugins.jquery.com/postreceive-hook</a></p>
 

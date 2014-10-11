@@ -127,6 +127,7 @@
 .highlight .nv { color: #bb60d5 } /* Name.Variable */
 .highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
 .highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #40a070 } /* Literal.Number.Bin */
 .highlight .mf { color: #40a070 } /* Literal.Number.Float */
 .highlight .mh { color: #40a070 } /* Literal.Number.Hex */
 .highlight .mi { color: #40a070 } /* Literal.Number.Integer */
@@ -173,7 +174,7 @@
 <h3>Global工具类的插件</h3>
 
 <p>比如</p>
-<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">trim</span><span class="p">(</span><span class="err">&#39;</span><span class="n">hello</span> <span class="n">world</span>  <span class="err">&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="err">$</span><span class="o">.</span><span class="vg">trim</span><span class="p">(</span><span class="c1">&#39;hello world  &#39;)</span>
 </pre></div>
 <p>这个方法是用于去掉空格的工具方法。它其实是给jQuery对象上增加了trim方法。</p>
 
@@ -182,10 +183,10 @@
 <h3>基于selector的插件</h3>
 
 <p>比如</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.mytab&#39;</span><span class="p">).</span><span class="nx">tab</span><span class="p">({</span>
-    <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;current index = &#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.mytab&#39;).tab({</span>
+<span class="w">    </span><span class="nl">change:</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">index</span><span class="p">){</span>
+<span class="w">        </span><span class="vg">console</span><span class="o">.</span><span class="vg">log</span><span class="p">(</span><span class="c1">&#39;current index = &#39; + index);</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 <p>这实际是一个tab插件最简单的用法。</p>
@@ -298,8 +299,8 @@
 <span class="nt">&lt;/ul&gt;</span>
 </pre></div>
 <p>然后我在读css代码的时候，发现</p>
-<div class="highlight"><pre><span class="p">.</span><span class="n">lion</span> <span class="p">{</span>
-    <span class="p">...</span>
+<div class="highlight"><pre><span class="o">.</span><span class="vg">lion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
 <span class="p">}</span>
 </pre></div>
 <p>我看了很久，lion是狮子的意思，那这里呢？</p>
@@ -360,13 +361,13 @@
 </pre></div>
 <p>修改如下</p>
 <div class="highlight"><pre><span class="c1">// html</span>
-<span class="o">&lt;</span><span class="nb">div</span> <span class="n">class</span><span class="o">=</span><span class="s1">&#39;tab_content_item active&#39;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="o">=</span><span class="p">&#39;</span><span class="n">tab_content_item</span> <span class="n">active</span><span class="p">&#39;</span><span class="o">&gt;</span>
     <span class="err">我是第一个内容</span>
-<span class="o">&lt;/</span><span class="nb">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 
 <span class="c1">// css</span>
-<span class="bp">.</span><span class="nx">tab_content</span> <span class="bp">.</span><span class="nx">active</span><span class="p">{</span>
-    <span class="nx">display</span><span class="p">:</span><span class="nx">block</span><span class="p">;</span>
+<span class="p">.</span><span class="n">tab_content</span> <span class="p">.</span><span class="n">active</span><span class="p">{</span>
+    <span class="nl">display:</span><span class="n">block</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>把行内样式抽象成状态，继而让代码更具可读性</p>
@@ -374,14 +375,14 @@
 <h3>v2的js</h3>
 
 <p>结构改了，js也一定做了修改，tab.js具体内容如下：</p>
-<div class="highlight"><pre><span class="p">;</span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span class="p">;</span><span class="err">$</span><span class="p">(</span><span class="vg">function</span><span class="p">(){</span>
+<span class="w">    </span><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(&#39;mouseover&#39;, function (){</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
-    <span class="p">})</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
+<span class="w">    </span><span class="p">})</span>
 <span class="p">});</span>
 </pre></div>
 <h3>点评</h3>
@@ -409,32 +410,32 @@
 <p>让我们动手改造一下tab.js吧：</p>
 
 <h3>代码</h3>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
-        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="err">将</span><span class="vg">defaults</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="err">参数合并到</span><span class="p">{}</span>
+<span class="w">        </span><span class="vg">var</span><span class="w"> </span><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="p">,</span><span class="vg">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(&#39;mouseover&#39;, function (){</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
-            <span class="p">})</span>      
-        <span class="p">});</span>
-        <span class="c1">// each end</span>
-    <span class="p">}</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
+<span class="w">            </span><span class="p">})</span><span class="w">      </span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1">//定义默认</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+<span class="w">    </span><span class="o">//</span><span class="err">定义默认</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <p>这段代码除了套用jQuery plugin模板外，就是几处select变成基于obj的查找的selector，其他与之前无异。</p>
 
@@ -445,16 +446,16 @@
 <h4>命名空间</h4>
 
 <p>防止变量方法污染的</p>
-<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <h4>分号问题</h4>
 
 <p>防止被别人的代码暗箭所伤</p>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>配置项</h3>
 <div class="highlight"><pre><span class="c1">// 将defaults 和 options 参数合并到{}</span>
@@ -471,8 +472,8 @@
 </ul>
 
 <p>那么$.extend方法是jQuery的方法，它是用于属性或者方法合并的，也就是说options和$.fn.tab.defaults先合并，合并的时候已后面的options为主，如果</p>
-<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
-    <span class="n">a</span> <span class="o">:</span> <span class="mi">0</span>
+<div class="highlight"><pre><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="o">=</span><span class="p">{</span>
+<span class="w">    </span><span class="vg">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="il">0</span>
 <span class="p">}</span>
 </pre></div>
 <p>而options的是
@@ -483,21 +484,21 @@
 <p>那么合并的结果将是a = 1，即以后面的为主</p>
 
 <p>如果options里没有b，而$.fn.tab.defaults里有b配置呢</p>
-<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">tab</span><span class="p">.</span><span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
-    <span class="n">a</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">b</span> <span class="o">:</span> <span class="nb">true</span>
+<div class="highlight"><pre><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="o">=</span><span class="p">{</span>
+<span class="w">    </span><span class="vg">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span>
+<span class="w">    </span><span class="vg">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="vg">true</span>
 <span class="p">}</span>
 </pre></div>
 <p>那么合并的结果将是</p>
 <div class="highlight"><pre><span class="p">{</span>
-    <span class="n">a</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">b</span> <span class="o">:</span> <span class="nb">true</span>
+<span class="w">    </span><span class="vg">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="il">1</span><span class="p">,</span>
+<span class="w">    </span><span class="vg">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="vg">true</span>
 <span class="p">}</span>
 </pre></div>
 <p>如果后面没有前面有，此值就是前面的值，即插件的默认项</p>
 
 <p>只有最前面的</p>
-<div class="highlight"><pre><span class="n">opts</span> <span class="o">=</span> <span class="err">$</span><span class="p">.</span><span class="n">extend</span><span class="p">({},</span><span class="o">***</span><span class="p">)</span>
+<div class="highlight"><pre><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="o">***</span><span class="p">)</span>
 </pre></div>
 <p>这是是一种防御性写法，保证返回的opts一定是一个plain object，仅此而已。</p>
 
@@ -510,21 +511,21 @@
 <p>给每个对象增加$(obj)属于防御性写法，保证对象一定是jq对象【这属于个人习惯，可以不参考】，cache是说jquery的this是指代上下文，上下文变换的时候，this就找不到了</p>
 
 <p>比如</p>
-<div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// this 1</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<div class="highlight"><pre><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="il">1</span>
+<span class="w">    </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-    <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(&#39;mouseover&#39;, function (){</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
 
-        <span class="c1">// this 2</span>
-        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="il">2</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-        <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
-    <span class="p">})</span>      
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
+<span class="w">    </span><span class="p">})</span><span class="w">      </span>
 <span class="p">});</span>
-<span class="c1">// each end</span>
+<span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
 </pre></div>
 <p>比较this1和this2的用法，如果之前没有定义obj，在事件回调函数里再想调用$(&#39;.tab&#39;)容器就非常麻烦了</p>
 
@@ -533,15 +534,15 @@
 <h3>selector和$.fn</h3>
 
 <p>插件的定义是</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-        <span class="p">...</span>
-    <span class="p">});</span>
+<div class="highlight"><pre><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">){</span>
+<span class="w">    </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">(){</span>
+<span class="w">        </span><span class="o">...</span>
+<span class="w">    </span><span class="p">});</span>
 <span class="p">}</span>
 </pre></div>
 <p>插件的用法是</p>
-<div class="highlight"><pre><span class="err">$</span><span class="p">(</span><span class="err">&#39;</span><span class="p">.</span><span class="n">tab</span><span class="err">&#39;</span><span class="p">).</span><span class="n">tab</span><span class="p">({</span>
-    <span class="n">config</span><span class="p">....</span>
+<div class="highlight"><pre><span class="err">$</span><span class="p">(</span><span class="c1">&#39;.tab&#39;).tab({</span>
+<span class="w">    </span><span class="vg">config</span><span class="o">....</span>
 <span class="p">});</span>
 </pre></div>
 <p>这样对比很容易得出</p>
@@ -558,38 +559,38 @@
 <p>是不是更简单？</p>
 
 <h3>jQuery plugin template</h3>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
-        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">XXXXXX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="err">将</span><span class="vg">defaults</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="err">参数合并到</span><span class="p">{}</span>
+<span class="w">        </span><span class="vg">var</span><span class="w"> </span><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">XXXXXX</span><span class="o">.</span><span class="vg">defaults</span><span class="p">,</span><span class="vg">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-            <span class="p">...</span>
-        <span class="p">});</span>
-        <span class="c1">// each end</span>
-    <span class="p">}</span>
+<span class="w">            </span><span class="o">...</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1">//定义默认</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">XXXXXX</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+<span class="w">    </span><span class="o">//</span><span class="err">定义默认</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">XXXXXX</span><span class="o">.</span><span class="vg">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>插件特点</h3>
 
 <ol>
 <li><p>有默认项</p>
-<div class="highlight"><pre><span class="err">$</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">XXXXXX</span><span class="p">.</span><span class="n">defaults</span>
+<div class="highlight"><pre><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">XXXXXX</span><span class="o">.</span><span class="vg">defaults</span>
 </pre></div></li>
 <li><p>基于selector</p>
-<div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<div class="highlight"><pre><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-    <span class="p">...</span>
+<span class="w">    </span><span class="o">...</span>
 <span class="p">});</span>
 </pre></div></li>
 </ol>
@@ -628,32 +629,32 @@
 当然不是了，我们看到很多网站的tab都是点击切换的，那么我们如何能让我们的tab支持这2种方式呢？</p>
 
 <h3>支持tab触发事件选项</h3>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
-        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="err">将</span><span class="vg">defaults</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="err">参数合并到</span><span class="p">{}</span>
+<span class="w">        </span><span class="vg">var</span><span class="w"> </span><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="p">,</span><span class="vg">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(opts.trigger_event_type, function (){</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
-            <span class="p">})</span>      
-        <span class="p">});</span>
-        <span class="c1">// each end</span>
-    <span class="p">}</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
+<span class="w">            </span><span class="p">})</span><span class="w">      </span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1">//定义默认</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="o">//</span><span class="err">定义默认</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nl">trigger_event_type:</span><span class="c1">&#39;click&#39;, //mouseover | click 默认是click</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <p>这就是普通配置项的例子，配置项的值是js支持的类型</p>
 
@@ -699,37 +700,37 @@
 <h3>回调函数</h3>
 
 <p>这就是普通配置项的例子，配置项的值是js支持的类型</p>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
-        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="err">将</span><span class="vg">defaults</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="err">参数合并到</span><span class="p">{}</span>
+<span class="w">        </span><span class="vg">var</span><span class="w"> </span><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="p">,</span><span class="vg">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-            <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(opts.trigger_event_type, function (){</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">                </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
 
-                <span class="nx">opts</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">());</span>
-            <span class="p">})</span>      
-        <span class="p">});</span>
-        <span class="c1">// each end</span>
-    <span class="p">}</span>
+<span class="w">                </span><span class="vg">opts</span><span class="o">.</span><span class="vg">change</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">index</span><span class="p">());</span>
+<span class="w">            </span><span class="p">})</span><span class="w">      </span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1">//定义默认</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
-        <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;current index = &#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="o">//</span><span class="err">定义默认</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nl">trigger_event_type:</span><span class="c1">&#39;click&#39;, //mouseover | click 默认是click</span>
+<span class="w">        </span><span class="nl">change:</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">index</span><span class="p">){</span>
+<span class="w">            </span><span class="vg">console</span><span class="o">.</span><span class="vg">log</span><span class="p">(</span><span class="c1">&#39;current index = &#39; + index);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>生效了么？</h3>
 
@@ -750,19 +751,20 @@
 <span class="p">};</span>
 </pre></div></li>
 <li><p>在插件内部调用了此回调函数</p>
-<div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<div class="highlight"><pre><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-    <span class="nx">$</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-        <span class="p">......</span>
+<span class="w">    </span><span class="err">$</span><span class="p">(</span><span class="vg">obj</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(opts.trigger_event_type, function (){</span>
+<span class="w">        </span><span class="o">......</span>
 
-        <span class="nx">opts</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">());</span>
-    <span class="p">})</span>      
+<span class="w">        </span><span class="vg">opts</span><span class="o">.</span><span class="vg">change</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">index</span><span class="p">());</span>
+<span class="w">    </span><span class="p">})</span><span class="w">      </span>
 <span class="p">});</span>
 </pre></div></li>
 </ol>
 
-<h3>回调函数最需要注意的问题
+<h3>回调函数最需要注意的问题</h3>
+
 <ul>
 <li>调用场合，在什么地方调用，这是生命周期的核心问题</li>
 <li>参数，确保在调用处有这些值</li>
@@ -796,84 +798,84 @@
 <p>jquery_plugin/plugin_four</p>
 
 <p><a href="examples/jquery_plugin/plugin_four/jQuery.tab.html">plugin_4</a></p>
-<div class="highlight"><pre><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
+<div class="highlight"><pre><span class="p">;(</span><span class="vg">function</span><span class="p">(</span><span class="err">$</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-    <span class="cm">/**</span>
-<span class="cm">     * 公共函数: 初始化tab出发事件</span>
-<span class="cm">     */</span> 
-    <span class="kd">function</span> <span class="nx">init_tab_trigger_event</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">trigger_event_type</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
-            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_header li&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="o">/**</span>
+<span class="w">     </span><span class="o">*</span><span class="w"> </span><span class="err">公共函数</span><span class="o">:</span><span class="w"> </span><span class="err">初始化</span><span class="vg">tab</span><span class="err">出发事件</span>
+<span class="w">     </span><span class="o">*/</span><span class="w"> </span>
+<span class="w">    </span><span class="vg">function</span><span class="w"> </span><span class="vg">init_tab_trigger_event</span><span class="p">(</span><span class="vg">container</span><span class="p">,</span><span class="vg">opts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="err">$</span><span class="p">(</span><span class="vg">container</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).on(opts.trigger_event_type, function (){</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">container</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_header li&#39;).removeClass(&#39;active&#39;);</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">addClass</span><span class="p">(</span><span class="c1">&#39;active&#39;);</span>
 
-            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-            <span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.tab_content div&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">()).</span><span class="nx">show</span><span class="p">();</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">container</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).hide();</span>
+<span class="w">            </span><span class="err">$</span><span class="p">(</span><span class="vg">container</span><span class="p">)</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="c1">&#39;.tab_content div&#39;).eq($(this).index()).show();</span>
 
-            <span class="nx">opts</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">());</span>
-        <span class="p">})</span>      
-    <span class="p">}</span>
+<span class="w">            </span><span class="vg">opts</span><span class="o">.</span><span class="vg">change</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">)</span><span class="o">.</span><span class="vg">index</span><span class="p">());</span>
+<span class="w">        </span><span class="p">})</span><span class="w">      </span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="cm">/**</span>
-<span class="cm">     * 公共函数: 初始化tab出发事件</span>
-<span class="cm">     */</span>
-    <span class="kd">function</span> <span class="nx">init_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
-        <span class="nx">_init_aaa_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
+<span class="w">    </span><span class="o">/**</span>
+<span class="w">     </span><span class="o">*</span><span class="w"> </span><span class="err">公共函数</span><span class="o">:</span><span class="w"> </span><span class="err">初始化</span><span class="vg">tab</span><span class="err">出发事件</span>
+<span class="w">     </span><span class="o">*/</span>
+<span class="w">    </span><span class="vg">function</span><span class="w"> </span><span class="vg">init_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">){</span>
+<span class="w">        </span><span class="vg">_init_aaa_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">);</span>
 
-        <span class="nx">_init_bbb_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">_init_bbb_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">);</span>
 
-        <span class="nx">_init_ccc_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="vg">_init_ccc_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="cm">/**</span>
-<span class="cm">     * 私有函数</span>
-<span class="cm">     */</span>
-    <span class="kd">function</span> <span class="nx">_init_aaa_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
+<span class="w">    </span><span class="o">/**</span>
+<span class="w">     </span><span class="o">*</span><span class="w"> </span><span class="err">私有函数</span>
+<span class="w">     </span><span class="o">*/</span>
+<span class="w">    </span><span class="vg">function</span><span class="w"> </span><span class="vg">_init_aaa_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">){</span>
 
-    <span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="kd">function</span> <span class="nx">_init_bbb_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
+<span class="w">    </span><span class="vg">function</span><span class="w"> </span><span class="vg">_init_bbb_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">){</span>
 
-    <span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="kd">function</span> <span class="nx">_init_ccc_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">){</span>
+<span class="w">    </span><span class="vg">function</span><span class="w"> </span><span class="vg">_init_ccc_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">){</span>
 
-    <span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 将defaults 和 options 参数合并到{}</span>
-        <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="err">将</span><span class="vg">defaults</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="err">参数合并到</span><span class="p">{}</span>
+<span class="w">        </span><span class="vg">var</span><span class="w"> </span><span class="vg">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="o">.</span><span class="vg">extend</span><span class="p">({},</span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="p">,</span><span class="vg">options</span><span class="p">);</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-            <span class="c1">// 根据配置进行初始化</span>
-            <span class="nx">init_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="err">根据配置进行初始化</span>
+<span class="w">            </span><span class="vg">init_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">);</span>
 
-            <span class="c1">// 初始化tab出发事件</span>
-            <span class="nx">init_tab_trigger_event</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="nx">opts</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="c1">// each end</span>
-    <span class="p">}</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="err">初始化</span><span class="vg">tab</span><span class="err">出发事件</span>
+<span class="w">            </span><span class="vg">init_tab_trigger_event</span><span class="p">(</span><span class="vg">obj</span><span class="p">,</span><span class="vg">opts</span><span class="p">);</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="vg">each</span><span class="w"> </span><span class="vg">end</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1">//定义默认</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tab</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">trigger_event_type</span><span class="o">:</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="c1">//mouseover | click 默认是click</span>
-        <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;current index = &#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="o">//</span><span class="err">定义默认</span>
+<span class="w">    </span><span class="err">$</span><span class="o">.</span><span class="vg">fn</span><span class="o">.</span><span class="vg">tab</span><span class="o">.</span><span class="vg">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nl">trigger_event_type:</span><span class="c1">&#39;click&#39;, //mouseover | click 默认是click</span>
+<span class="w">        </span><span class="nl">change:</span><span class="w"> </span><span class="vg">function</span><span class="p">(</span><span class="vg">index</span><span class="p">){</span>
+<span class="w">            </span><span class="vg">console</span><span class="o">.</span><span class="vg">log</span><span class="p">(</span><span class="c1">&#39;current index = &#39; + index);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+<span class="p">})(</span><span class="vg">jQuery</span><span class="p">);</span>
 </pre></div>
 <h3>将插件核心逻辑，抽象成公共函数</h3>
-<div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<div class="highlight"><pre><span class="vg">return</span><span class="w"> </span><span class="vg">this</span><span class="o">.</span><span class="vg">each</span><span class="p">(</span><span class="vg">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="vg">var</span><span class="w"> </span><span class="vg">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="vg">this</span><span class="p">);</span>
 
-    <span class="c1">// 根据配置进行初始化</span>
-    <span class="nx">init_with_config</span><span class="p">(</span><span class="nx">opts</span><span class="p">);</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="err">根据配置进行初始化</span>
+<span class="w">    </span><span class="vg">init_with_config</span><span class="p">(</span><span class="vg">opts</span><span class="p">);</span>
 
-    <span class="c1">// 初始化tab出发事件</span>
-    <span class="nx">init_tab_trigger_event</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="nx">opts</span><span class="p">);</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="err">初始化</span><span class="vg">tab</span><span class="err">出发事件</span>
+<span class="w">    </span><span class="vg">init_tab_trigger_event</span><span class="p">(</span><span class="vg">obj</span><span class="p">,</span><span class="vg">opts</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 <h3>将大的公共函数拆解成n个私有函数</h3>
@@ -922,55 +924,56 @@
 </pre></div>
 <p>函数体前面加一个空格</p>
 
-<h2>使用grunt创建项目
+<h2>使用grunt创建项目</h2>
+
 <p><a href="http://gruntjs.com/getting-started">grunt</a>是基于任务的构建工具，和make，rake，ant，cake，maven，gradle等是一样的</p>
 
 <h3>前置条件</h3>
 
 <p>前置条件需要有nodejs和npm，请确保已安装成功：</p>
-<div class="highlight"><pre><span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">grunt</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">grunt</span><span class="o">-</span><span class="n">init</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gruntjs/grunt-init-jquery.git ~/.grunt-init/jquery </span>
-<span class="n">grunt</span><span class="o">-</span><span class="n">init</span> <span class="n">jquery</span> 
+<div class="highlight"><pre><span class="vg">npm</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">grunt</span>
+<span class="vg">npm</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span>
+<span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">gruntjs</span><span class="o">/</span><span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span><span class="o">-</span><span class="vg">jquery</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">~/.</span><span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span><span class="o">/</span><span class="vg">jquery</span><span class="w"> </span>
+<span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span><span class="w"> </span><span class="vg">jquery</span><span class="w"> </span>
 </pre></div>
 <p>如果是万恶的window系统，请修改:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gruntjs/grunt-init-jquery.git %USERPROFILE%/.grunt-init/jquery</span>
+<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">gruntjs</span><span class="o">/</span><span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span><span class="o">-</span><span class="vg">jquery</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">%</span><span class="vg">USERPROFILE</span><span class="o">%/.</span><span class="vg">grunt</span><span class="o">-</span><span class="vg">init</span><span class="o">/</span><span class="vg">jquery</span>
 </pre></div>
 <p>另外如果是linux或者mac，使用-g安装的时候可能需要sudo权限，具体自己看日志</p>
 
 <h3>创建项目</h3>
-<div class="highlight"><pre><span class="err">➜</span>  <span class="n">jquery_plugin</span> <span class="n">git</span><span class="o">:</span><span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">mkdir</span> <span class="n">plugin_grunt</span>     
-<span class="err">➜</span>  <span class="n">jquery_plugin</span> <span class="n">git</span><span class="o">:</span><span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">cd</span> <span class="n">plugin_grunt</span> 
-<span class="err">➜</span>  <span class="n">plugin_grunt</span> <span class="n">git</span><span class="o">:</span><span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">grunt</span><span class="o">-</span><span class="n">init</span> <span class="n">jquery</span>
+<div class="highlight"><pre><span class="err">➜</span>  <span class="n">jquery_plugin</span> <span class="nl">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">mkdir</span> <span class="n">plugin_grunt</span>     
+<span class="err">➜</span>  <span class="n">jquery_plugin</span> <span class="nl">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">cd</span> <span class="n">plugin_grunt</span> 
+<span class="err">➜</span>  <span class="n">plugin_grunt</span> <span class="nl">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">grunt</span><span class="o">-</span><span class="n">init</span> <span class="n">jquery</span>
 <span class="n">Running</span> <span class="s">&quot;init:jquery&quot;</span> <span class="p">(</span><span class="n">init</span><span class="p">)</span> <span class="n">task</span>
-<span class="n">This</span> <span class="n">task</span> <span class="n">will</span> <span class="n">create</span> <span class="n">one</span> <span class="n">or</span> <span class="n">more</span> <span class="n">files</span> <span class="n">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">directory</span><span class="p">,</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span>
+<span class="n">This</span> <span class="n">task</span> <span class="n">will</span> <span class="n">create</span> <span class="n">one</span> <span class="n">or</span> <span class="n">more</span> <span class="n">files</span> <span class="k">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">directory</span><span class="p">,</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span>
 <span class="n">environment</span> <span class="n">and</span> <span class="n">the</span> <span class="n">answers</span> <span class="n">to</span> <span class="n">a</span> <span class="n">few</span> <span class="n">questions</span><span class="p">.</span> <span class="n">Note</span> <span class="n">that</span> <span class="n">answering</span> <span class="s">&quot;?&quot;</span> <span class="n">to</span> <span class="n">any</span>
 <span class="n">question</span> <span class="n">will</span> <span class="n">show</span> <span class="n">question</span><span class="o">-</span><span class="n">specific</span> <span class="n">help</span> <span class="n">and</span> <span class="n">answering</span> <span class="s">&quot;none&quot;</span> <span class="n">to</span> <span class="n">most</span> <span class="n">questions</span>
 <span class="n">will</span> <span class="n">leave</span> <span class="n">its</span> <span class="n">value</span> <span class="n">blank</span><span class="p">.</span>
 
-<span class="s">&quot;jquery&quot;</span> <span class="n">template</span> <span class="n">notes</span><span class="o">:</span>
+<span class="s">&quot;jquery&quot;</span> <span class="n">template</span> <span class="nl">notes</span><span class="p">:</span>
 <span class="n">Project</span> <span class="n">name</span> <span class="n">should</span> <span class="n">not</span> <span class="n">contain</span> <span class="s">&quot;jquery&quot;</span> <span class="n">or</span> <span class="s">&quot;js&quot;</span> <span class="n">and</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">ID</span> <span class="n">not</span>
-<span class="n">already</span> <span class="n">in</span> <span class="n">use</span> <span class="n">at</span> <span class="n">plugins</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="p">.</span> <span class="n">Project</span> <span class="n">title</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">human</span><span class="o">-</span><span class="n">readable</span>
+<span class="n">already</span> <span class="k">in</span> <span class="n">use</span> <span class="n">at</span> <span class="n">plugins</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="p">.</span> <span class="n">Project</span> <span class="n">title</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">human</span><span class="o">-</span><span class="n">readable</span>
 <span class="n">title</span><span class="p">,</span> <span class="n">and</span> <span class="n">doesn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">need</span> <span class="n">to</span> <span class="n">contain</span> <span class="n">the</span> <span class="n">word</span> <span class="s">&quot;jQuery&quot;</span><span class="p">,</span> <span class="n">although</span> <span class="n">it</span> <span class="n">may</span><span class="p">.</span> <span class="n">For</span>
 <span class="n">example</span><span class="p">,</span> <span class="n">a</span> <span class="n">plugin</span> <span class="n">titled</span> <span class="s">&quot;Awesome Plugin&quot;</span> <span class="n">might</span> <span class="n">have</span> <span class="n">the</span> <span class="n">name</span> <span class="s">&quot;awesome-plugin&quot;</span><span class="p">.</span>
 
-<span class="n">For</span> <span class="n">more</span> <span class="n">information</span><span class="p">,</span> <span class="n">please</span> <span class="n">see</span> <span class="n">the</span> <span class="n">following</span> <span class="n">documentation</span><span class="o">:</span>
+<span class="n">For</span> <span class="n">more</span> <span class="n">information</span><span class="p">,</span> <span class="n">please</span> <span class="n">see</span> <span class="n">the</span> <span class="n">following</span> <span class="nl">documentation</span><span class="p">:</span>
 
-<span class="n">Naming</span> <span class="n">Your</span> <span class="n">Plugin</span>      <span class="n">http</span><span class="o">:</span><span class="c1">//plugins.jquery.com/docs/names/</span>
-<span class="n">Publishing</span> <span class="n">Your</span> <span class="n">Plugin</span>  <span class="n">http</span><span class="o">:</span><span class="c1">//plugins.jquery.com/docs/publish/</span>
-<span class="n">Package</span> <span class="n">Manifest</span>        <span class="n">http</span><span class="o">:</span><span class="c1">//plugins.jquery.com/docs/package-manifest/</span>
+<span class="n">Naming</span> <span class="n">Your</span> <span class="n">Plugin</span>      <span class="nl">http</span><span class="p">:</span><span class="c1">//plugins.jquery.com/docs/names/</span>
+<span class="n">Publishing</span> <span class="n">Your</span> <span class="n">Plugin</span>  <span class="nl">http</span><span class="p">:</span><span class="c1">//plugins.jquery.com/docs/publish/</span>
+<span class="n">Package</span> <span class="n">Manifest</span>        <span class="nl">http</span><span class="p">:</span><span class="c1">//plugins.jquery.com/docs/package-manifest/</span>
 
-<span class="n">Please</span> <span class="n">answer</span> <span class="n">the</span> <span class="n">following</span><span class="o">:</span>
+<span class="n">Please</span> <span class="n">answer</span> <span class="n">the</span> <span class="nl">following</span><span class="p">:</span>
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">name</span> <span class="p">(</span><span class="n">plugin_grunt</span><span class="p">)</span> <span class="n">i5ting</span><span class="o">-</span><span class="n">mobile</span>
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">title</span> <span class="p">(</span><span class="n">I5ting</span> <span class="n">Mobile</span><span class="p">)</span> 
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Description</span> <span class="p">(</span><span class="n">The</span> <span class="n">best</span> <span class="n">jQuery</span> <span class="n">plugin</span> <span class="n">ever</span><span class="p">.)</span> <span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">test</span> <span class="n">jq</span> <span class="n">plugin</span>
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Version</span> <span class="p">(</span><span class="mf">0.1.0</span><span class="p">)</span> 
-<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">git</span> <span class="n">repository</span> <span class="p">(</span><span class="n">git</span><span class="o">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin.git) </span>
-<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">homepage</span> <span class="p">(</span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin) </span>
-<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">issues</span> <span class="n">tracker</span> <span class="p">(</span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin/issues) </span>
+<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">git</span> <span class="n">repository</span> <span class="p">(</span><span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin.git) </span>
+<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">homepage</span> <span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin) </span>
+<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Project</span> <span class="n">issues</span> <span class="n">tracker</span> <span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/i5ting/How-to-write-jQuery-plugin/issues) </span>
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Licenses</span> <span class="p">(</span><span class="n">MIT</span><span class="p">)</span> 
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Author</span> <span class="n">name</span> <span class="p">(</span><span class="n">shiren1118</span><span class="p">)</span> <span class="n">i5ting</span>
-<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Author</span> <span class="n">email</span> <span class="p">(</span><span class="n">shiren1118</span><span class="err">@</span><span class="mf">126.</span><span class="n">com</span><span class="p">)</span> <span class="n">i5ting</span><span class="err">@</span><span class="mf">126.</span><span class="n">com</span>
+<span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Author</span> <span class="n">email</span> <span class="p">(</span><span class="n">shiren1118</span><span class="mf">@126.</span><span class="n">com</span><span class="p">)</span> <span class="n">i5ting</span><span class="mf">@126.</span><span class="n">com</span>
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Author</span> <span class="n">url</span> <span class="p">(</span><span class="n">none</span><span class="p">)</span> 
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Required</span> <span class="n">jQuery</span> <span class="n">version</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> 
 <span class="p">[</span><span class="o">?</span><span class="p">]</span> <span class="n">Do</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">make</span> <span class="n">any</span> <span class="n">changes</span> <span class="n">to</span> <span class="n">the</span> <span class="n">above</span> <span class="n">before</span> <span class="n">continuing</span><span class="o">?</span> <span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span> 
@@ -996,17 +999,17 @@
 <span class="n">Initialized</span> <span class="n">from</span> <span class="n">template</span> <span class="s">&quot;jquery&quot;</span><span class="p">.</span>
 <span class="n">You</span> <span class="n">should</span> <span class="n">now</span> <span class="n">install</span> <span class="n">project</span> <span class="n">dependencies</span> <span class="n">with</span> <span class="n">npm</span> <span class="n">install</span><span class="p">.</span> <span class="n">After</span> <span class="n">that</span><span class="p">,</span> <span class="n">you</span>
 <span class="n">may</span> <span class="n">execute</span> <span class="n">project</span> <span class="n">tasks</span> <span class="n">with</span> <span class="n">grunt</span><span class="p">.</span> <span class="n">For</span> <span class="n">more</span> <span class="n">information</span> <span class="n">about</span> <span class="n">installing</span>
-<span class="n">and</span> <span class="n">configuring</span> <span class="n">Grunt</span><span class="p">,</span> <span class="n">please</span> <span class="n">see</span> <span class="n">the</span> <span class="n">Getting</span> <span class="n">Started</span> <span class="n">guide</span><span class="o">:</span>
+<span class="n">and</span> <span class="n">configuring</span> <span class="n">Grunt</span><span class="p">,</span> <span class="n">please</span> <span class="n">see</span> <span class="n">the</span> <span class="n">Getting</span> <span class="n">Started</span> <span class="nl">guide</span><span class="p">:</span>
 
-<span class="nl">http:</span><span class="c1">//gruntjs.com/getting-started</span>
+<span class="nl">http</span><span class="p">:</span><span class="c1">//gruntjs.com/getting-started</span>
 
 <span class="n">Done</span><span class="p">,</span> <span class="n">without</span> <span class="n">errors</span><span class="p">.</span>
-<span class="err">➜</span>  <span class="n">plugin_grunt</span> <span class="n">git</span><span class="o">:</span><span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> 
+<span class="err">➜</span>  <span class="n">plugin_grunt</span> <span class="nl">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> 
 </pre></div>
 <h3>安装依赖</h3>
 
 <p>切换到plugin_grunt根目录，通过下面命令安装grunt依赖的包</p>
-<div class="highlight"><pre><span class="err">➜</span>  <span class="n">plugin_grunt</span> <span class="n">git</span><span class="o">:</span><span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="n">npm</span> <span class="n">install</span>
+<div class="highlight"><pre><span class="err">➜</span><span class="w">  </span><span class="vg">plugin_grunt</span><span class="w"> </span><span class="nl">git:</span><span class="p">(</span><span class="vg">master</span><span class="p">)</span><span class="w"> </span><span class="vg">npm</span><span class="w"> </span><span class="vg">install</span>
 </pre></div>
 <p>qunit 依赖phantomjs，需要翻墙，自备梯子或者 <a href="http://i5ting.github.io/How-to-write-jQuery-plugin/node_modules.zip">http://i5ting.github.io/How-to-write-jQuery-plugin/node_modules.zip</a></p>
 
@@ -1029,10 +1032,10 @@
 </ul>
 
 <p>当然你也可以分别运行，比如，运行单元测试：</p>
-<div class="highlight"><pre><span class="n">grunt</span> <span class="n">qunit</span>
+<div class="highlight"><pre><span class="vg">grunt</span><span class="w"> </span><span class="vg">qunit</span>
 </pre></div>
 <p>比如，运行混淆代码</p>
-<div class="highlight"><pre><span class="n">grunt</span> <span class="n">uglify</span>
+<div class="highlight"><pre><span class="vg">grunt</span><span class="w"> </span><span class="vg">uglify</span>
 </pre></div>
 <p>没有error，通过即可。</p>
 

@@ -17,7 +17,7 @@
 
 解题思路：
 
-从[Best Time to Buy and Sell Stock](./best-time-to-buy-and-sell-stock.html)可知, 可以在O(n)的时间内，可以得到某个区间内的一次交易最大利润。设i从1到n-2，那么针对每一个i，看看在prices的子序列[0,...,i][i,...,n-1]上分别取得的最大利润即可，时间复杂度是O(n^2)。
+从[Best Time to Buy and Sell Stock](#best time to buy and sell stock)可知, 可以在O(n)的时间内，可以得到某个区间内的一次交易最大利润。设i从1到n-2，那么针对每一个i，看看在prices的子序列[0,...,i][i,...,n-1]上分别取得的最大利润即可，时间复杂度是O(n^2)。
 
 ```cpp
 	

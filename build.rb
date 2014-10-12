@@ -169,6 +169,7 @@ def build_with_dir(destiny_dir)
 							$(document).ready(function(){
 								$('#tree').ztree_toc({
 									is_auto_number:true,
+                                    use_head_anchor: true,
 									documment_selector:'.markdown-body'
 								});
 							});

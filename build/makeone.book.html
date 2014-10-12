@@ -166,7 +166,7 @@
 </pre></div>
 <p>解题思路：</p>
 
-<p>从<a href="./best-time-to-buy-and-sell-stock.html">Best Time to Buy and Sell Stock</a>可知, 可以在O(n)的时间内，可以得到某个区间内的一次交易最大利润。设i从1到n-2，那么针对每一个i，看看在prices的子序列[0,...,i][i,...,n-1]上分别取得的最大利润即可，时间复杂度是O(n^2)。</p>
+<p>从<a href="#best%20time%20to%20buy%20and%20sell%20stock">Best Time to Buy and Sell Stock</a>可知, 可以在O(n)的时间内，可以得到某个区间内的一次交易最大利润。设i从1到n-2，那么针对每一个i，看看在prices的子序列[0,...,i][i,...,n-1]上分别取得的最大利润即可，时间复杂度是O(n^2)。</p>
 <div class="highlight"><pre>    <span class="kt">int</span> <span class="nf">maxSub</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">prices</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
@@ -10987,6 +10987,7 @@ the same straight line.</p>
 							$(document).ready(function(){
 								$('#tree').ztree_toc({
 									is_auto_number:true,
+                                    use_head_anchor: true,
 									documment_selector:'.markdown-body'
 								});
 							});
